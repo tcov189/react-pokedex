@@ -1,30 +1,15 @@
-import PropTypes from 'prop-types';
-import { Counter } from './Counter';
-import { Accordion } from './Accordion';
-import { Input } from './Input';
-import "./App.css";
+import Header from './Layout/Header';
+import Content from './Layout/Content';
+import Footer from './Layout/Footer';
 
 function App() {
   return (
-    <div className="App">
-      <Input />
-      <Counter />
-      <Accordion />
+    <div className="bg-blue-300 h-screen flex flex-col justify-between">
+      <Header />
+      <Content />
+      <Footer />
     </div>
   );
-}
-
-function HelloWorld({ name, greeting = "Hello" }) {
-  return (
-    <h1>
-      {greeting} {name}!
-    </h1>
-  );
-}
-
-HelloWorld.propTypes = {
-  name: PropTypes.string,
-  greeting: PropTypes.string,
 }
 
 export default App;
