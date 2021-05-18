@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 
 export default function Filter({filter, setFilter, placeHolder}) {
     return (
-        <div>
+        <div className="w-full">
             <input
-                className="px-1"
+                className="w-full px-2 py-1"
                 placeholder={placeHolder || null}
                 onChange={(e) => setFilter(e.target.value)}
                 value={filter} />

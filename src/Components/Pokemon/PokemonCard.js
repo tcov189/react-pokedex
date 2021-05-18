@@ -2,28 +2,26 @@ import PropTypes from 'prop-types'
 import TypeLabel from './TypeLabel'
 
 export default function PokemonCard({ pokemon }) {
-    const primaryType = pokemon.types.filter((type) => type.slot === 1 )[0];
-    const secondaryType = pokemon.types.filter((type) => type.slot !== 1 )[0];
 
     return (
         <div className="flex items-center bg-gray-100 my-2 py-3 px-2 rounded-sm border border-gray-500">
             <div className="flex mr-1 w-1/2 items-center">
-                <div className="mr-2">ICON</div>
-                <p className="mr-1 text-sm">
-                    #{pokemon.id}
+                <div className="mr-2">
+                    {/* <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/icons/${pokemon.id}.png`} alt="" /> */}
+                </div>
+                <p className="mr-1">
+                    #{pokemon.id.toString().padStart(3, '0')}
                 </p>
                 <p className="capitalize">{pokemon.name}</p>
             </div>
 
-            <div className="flex flex-1 justify-between items-center">
-                <div className="flex flex-1 justify-between">
-                    <TypeLabel type={primaryType.type.name} />
-                    {secondaryType &&
-                        <TypeLabel type={secondaryType.type.name} />
+            <div className="flex flex-1 justify-end">
+                <div className="flex space-x-4">
+                    <TypeLabel type={pokemon.primary_type.type.name} />
+                    {pokemon.secondary_type &&
+                        <TypeLabel type={pokemon.secondary_type.type.name} />
                     }
                 </div>
-
-                <div className="ml-2">ICON</div>
             </div>
         </div>
     )
