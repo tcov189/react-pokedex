@@ -4,7 +4,7 @@ import Footer from './Layout/Footer';
 
 function App() {
   return (
-    <div className="bg-blue-300 h-screen flex flex-col justify-between">
+    <div className="bg-blue-300 min-h-screen flex flex-col justify-between">
       <Header />
       <Content />
       <Footer />

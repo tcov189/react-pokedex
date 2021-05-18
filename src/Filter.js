@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
 
-export default function Filter({filter, onChangeHandler, placeHolder}) {
+export default function Filter({filter, setFilter, placeHolder}) {
     return (
         <div>
             <input
                 className="px-1"
                 placeholder={placeHolder || null}
-                onChange={onChangeHandler}
+                onChange={(e) => setFilter(e.target.value)}
                 value={filter} />
         </div>
     )
@@ -14,6 +14,6 @@ export default function Filter({filter, onChangeHandler, placeHolder}) {
 
 Filter.propTypes = {
     filter: PropTypes.string.isRequired,
-    onChangeHandler: PropTypes.func.isRequired,
+    setFilter: PropTypes.func.isRequired,
     placeHolder: PropTypes.string,
 };
