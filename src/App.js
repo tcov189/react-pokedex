@@ -11,7 +11,7 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route path="/details">
+          <Route path="/pokemon/:id">
             <PokemonDetail />
           </Route>
           <Route path="/">

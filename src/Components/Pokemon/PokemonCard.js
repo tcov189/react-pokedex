@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function PokemonCard({ pokemon }) {
   return (
-    <Link to="/details">
+    <Link to={`/pokemon/${pokemon.id}`}>
       <div className="flex items-center bg-gray-100 my-2 py-3 px-2 rounded-sm border border-gray-500">
         <div className="flex mr-1 w-1/2 items-center">
           <div className="mr-2">
@@ -31,5 +31,5 @@ PokemonCard.propTypes = {
     name: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     types: PropTypes.array.isRequired,
-  }),
+  }).isRequired,
 };
