@@ -22,7 +22,7 @@ export default function TypeLabel({ type }) {
       break;
 
     case "flying":
-      labelClasses += "bg-blue-300";
+      labelClasses += "bg-blue-400";
       break;
 
     case "bug":

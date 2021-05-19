@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Content from "../Layout/Content";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import PokemonDetailsNav from "../Components/PokemonDetails/PokemonDetailsNav";
+import PokemonDetailsHeader from "../Components/PokemonDetails/PokemonDetailsHeader";
 
 export default function PokemonDetail() {
   const { id } = useParams();
@@ -11,9 +12,16 @@ export default function PokemonDetail() {
 
   const getPokemonData = async (id) => {
     try {
-      const res = await fetchGraphQL(parseInt(id));
+      let pokemonData = {};
 
-      const pokemonData = res.data.pokemon[0];
+      if (localStorage.getItem(`pokemon_${id}`)) {
+        pokemonData = JSON.parse(localStorage.getItem(`pokemon_${id}`));
+      } else {
+        const res = await fetchGraphQL(parseInt(id));
+        pokemonData = res.data.pokemon[0];
+
+        localStorage.setItem(`pokemon_${id}`, JSON.stringify(pokemonData));
+      }
 
       setPokemonData(pokemonData);
     } catch (error) {
@@ -35,10 +43,12 @@ export default function PokemonDetail() {
       )}
 
       {pokemonData && (
-        <PokemonDetailsNav pokemonDexNumber={pokemonData.id} />
+        <div>
+          <PokemonDetailsNav pokemonDexNumber={pokemonData.id} />
+          <PokemonDetailsHeader pokemonData={pokemonData} />
+        </div>
       )}
 
-      <h1>{pokemonData.name}</h1>
     </Content>
   );
 }
