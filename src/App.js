@@ -1,13 +1,25 @@
-import Header from './Layout/Header';
-import Content from './Layout/Content';
-import Footer from './Layout/Footer';
+import Header from "./Layout/Header";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import Footer from "./Layout/Footer";
+import PokemonList from "./Pages/PokemonList";
+import PokemonDetail from "./Pages/PokemonDetail";
 
 function App() {
   return (
     <div className="bg-blue-300 min-h-screen flex flex-col justify-between">
-      <Header />
-      <Content />
-      <Footer />
+      <Router>
+        <Header />
+        <Switch>
+          <Route path="/details">
+            <PokemonDetail />
+          </Route>
+          <Route path="/">
+            <PokemonList />
+          </Route>
+        </Switch>
+        <Footer />
+      </Router>
     </div>
   );
 }
