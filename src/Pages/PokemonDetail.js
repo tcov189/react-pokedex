@@ -50,6 +50,7 @@ export default function PokemonDetail() {
           <PokemonDetailsNav pokemonDexNumber={pokemonData.id} />
           <PokemonDetailsHeader pokemonData={pokemonData} />
           <PokemonDetailsAbilities abilities={pokemonData.abilities} />
+
           <PokemonDetailsStats stats={pokemonData.stats} />
         </div>
       )}
