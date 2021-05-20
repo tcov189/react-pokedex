@@ -14,10 +14,10 @@ export default function PokemonDetailsAbilities({ abilities }) {
   return (
     <div className="pt-2">
       <h3 className="font-bold text-lg">Abilities</h3>
-      <div className="flex justify-between pt-1">
+      <div className="flex justify-center pt-1 space-x-5">
         <AbilityBlock ability={pokeAbilities[1]} />
-        <AbilityBlock ability={pokeAbilities[2]} />
-        <AbilityBlock ability={pokeAbilities[3]} />
+        {pokeAbilities[2] && <AbilityBlock ability={pokeAbilities[2]} />}
+        {pokeAbilities[3] && <AbilityBlock ability={pokeAbilities[3]} />}
       </div>
     </div>
   );

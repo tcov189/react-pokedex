@@ -21,7 +21,7 @@ export default function PokemonDetailsStats({ stats }) {
   console.log(statMap, total, highestStat);
 
   return (
-    <div className="py-2">
+    <div className="py-3">
       <h3 className="font-bold text-lg">Base Stats</h3>
       <div className="flex flex-col space-y-1 w-full">
         <StatBlock
