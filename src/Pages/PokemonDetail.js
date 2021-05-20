@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Content from "../Layout/Content";
 import ScaleLoader from "react-spinners/ScaleLoader";
+
 import PokemonDetailsNav from "../Components/PokemonDetails/PokemonDetailsNav";
 import PokemonDetailsHeader from "../Components/PokemonDetails/PokemonDetailsHeader";
+import PokemonDetailsAbilities from "../Components/PokemonDetails/PokemonDetailsAbilities";
+import PokemonDetailsStats from "../Components/PokemonDetails/PokemonDetailsStats";
 
 export default function PokemonDetail() {
   const { id } = useParams();
@@ -46,15 +49,16 @@ export default function PokemonDetail() {
         <div>
           <PokemonDetailsNav pokemonDexNumber={pokemonData.id} />
           <PokemonDetailsHeader pokemonData={pokemonData} />
+          <PokemonDetailsAbilities abilities={pokemonData.abilities} />
+          <PokemonDetailsStats stats={pokemonData.stats} />
         </div>
       )}
-
     </Content>
   );
 }
 
 const query = `
-query getPokemonData($id: Int) {
+query getPokemonData($id: Int, $_eq: Int = 2) {
   pokemon: pokemon_v2_pokemon(where: {is_default: {_eq: true}, id: {_eq: $id}}) {
     name
     id
@@ -62,6 +66,23 @@ query getPokemonData($id: Int) {
     types: pokemon_v2_pokemontypes {
       slot
       type: pokemon_v2_type {
+        name
+      }
+    }
+    abilities: pokemon_v2_pokemonabilities(where: {pokemon_v2_ability: {is_main_series: {_eq: true}, generation_id: {}}}) {
+      is_hidden
+      ability: pokemon_v2_ability {
+        name
+        is_main_series
+        pokemon_v2_abilitynames(where: {language_id: {_eq: 2}}) {
+          name
+        }
+      }
+      slot
+    }
+    stats: pokemon_v2_pokemonstats {
+      base_stat
+      stat: pokemon_v2_stat {
         name
       }
     }
