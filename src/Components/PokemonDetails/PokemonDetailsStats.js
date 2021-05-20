@@ -65,18 +65,24 @@ function StatBlock({ stat, statName, highestStat }) {
   let widthStyle = { width: width + "%" };
 
   return (
-    <div className="flex mt-2 border border-gray-500">
+    <div className="flex mt-2">
       <p
-        className="capitalize flex-1 bg-gray-500 text-gray-300 rounded-tl-sm rounded-bl-sm text-center text-sm items-center flex justify-center"
-        style={{ flexBasis: "40%" }}>
+        className="capitalize flex-1 bg-gray-500 text-gray-300 rounded-tl rounded-bl text-center text-sm items-center flex justify-center"
+        style={{ flexBasis: "40%" }}
+      >
         {statName}
       </p>
-      <div className="bg-gray-300 w-full">
-        <div className="bg-gradient-to-r to-blue-400 from-blue-600" style={widthStyle}>
+      <div className="bg-gray-300" style={{ flexBasis: "100%", flexGrow: 1 }}>
+        <div
+          className="bg-gradient-to-r to-blue-400 from-blue-600"
+          style={widthStyle}
+        >
           &nbsp;
         </div>
       </div>
-      <p className="bg-gray-500 text-gray-300 px-2 border-l border-gray-500">{stat.stat_value}</p>
+      <p className="bg-gray-500 text-gray-300 px-2 border-l border-gray-500 text-center rounded-tr rounded-br" style={{ flexBasis: "20%", flexGrow: 1 }}>
+        {stat.stat_value}
+      </p>
     </div>
   );
 }
