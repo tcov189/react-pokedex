@@ -7,6 +7,7 @@ import PokemonDetailsNav from "../Components/PokemonDetails/PokemonDetailsNav";
 import PokemonDetailsHeader from "../Components/PokemonDetails/PokemonDetailsHeader";
 import PokemonDetailsAbilities from "../Components/PokemonDetails/PokemonDetailsAbilities";
 import PokemonDetailsStats from "../Components/PokemonDetails/PokemonDetailsStats";
+import PokemonDetailsEvolution from "../Components/PokemonDetails/PokemonDetailsEvolution";
 
 export default function PokemonDetail() {
   const { id } = useParams();
@@ -48,10 +49,14 @@ export default function PokemonDetail() {
       {pokemonData && (
         <div>
           <PokemonDetailsNav pokemonDexNumber={pokemonData.id} />
+
           <PokemonDetailsHeader pokemonData={pokemonData} />
+
           <PokemonDetailsAbilities abilities={pokemonData.abilities} />
 
           <PokemonDetailsStats stats={pokemonData.stats} />
+
+          <PokemonDetailsEvolution evolutionData={pokemonData.additional_info.evo_chain} />
         </div>
       )}
     </Content>
@@ -59,7 +64,7 @@ export default function PokemonDetail() {
 }
 
 const query = `
-query getPokemonData($id: Int, $_eq: Int = 2) {
+query getPokemonData($id: Int) {
   pokemon: pokemon_v2_pokemon(where: {is_default: {_eq: true}, id: {_eq: $id}}) {
     name
     id
@@ -85,6 +90,26 @@ query getPokemonData($id: Int, $_eq: Int = 2) {
       base_stat
       stat: pokemon_v2_stat {
         name
+      }
+    }
+    additional_info: pokemon_v2_pokemonspecy {
+      evo_chain: pokemon_v2_evolutionchain {
+        pokemon: pokemon_v2_pokemonspecies(where: {_not: {id: {_eq: $id}}}) {
+          name
+          evoultion_requirement: pokemon_v2_pokemonevolutions {
+            trigger: pokemon_v2_evolutiontrigger {
+              name: pokemon_v2_evolutiontriggernames(where: {language_id: {_eq: 9}}) {
+                name
+              }
+            }
+            min_level
+            min_affection
+            min_beauty
+            min_happiness
+            needs_overworld_rain
+          }
+          id
+        }
       }
     }
   }

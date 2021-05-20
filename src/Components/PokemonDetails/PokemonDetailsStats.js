@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function PokemonDetailsStats({ stats }) {
-  console.log(stats);
   let statMap = {};
   let total = 0;
   let highestStat = 0;
@@ -17,8 +16,6 @@ export default function PokemonDetailsStats({ stats }) {
       stat_value: stat.base_stat,
     });
   });
-
-  console.log(statMap, total, highestStat);
 
   return (
     <div className="py-3">
@@ -55,6 +52,14 @@ export default function PokemonDetailsStats({ stats }) {
           highestStat={highestStat}
         />
       </div>
+      <div className="flex justify-end mt-1">
+        <p
+          className="bg-gray-500 text-gray-300 px-2 rounded border-gray-500 text-center"
+          style={{ flexBasis: "14%"}}
+        >
+          {total}
+        </p>
+      </div>
     </div>
   );
 }
@@ -80,7 +85,10 @@ function StatBlock({ stat, statName, highestStat }) {
           &nbsp;
         </div>
       </div>
-      <p className="bg-gray-500 text-gray-300 px-2 border-l border-gray-500 text-center rounded-tr rounded-br" style={{ flexBasis: "20%", flexGrow: 1 }}>
+      <p
+        className="bg-gray-500 text-gray-300 px-2 border-l border-gray-500 text-center rounded-tr rounded-br"
+        style={{ flexBasis: "20%", flexGrow: 1 }}
+      >
         {stat.stat_value}
       </p>
     </div>
