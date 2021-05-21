@@ -96,7 +96,7 @@ query getPokemonData($id: Int) {
       evo_chain: pokemon_v2_evolutionchain {
         pokemon: pokemon_v2_pokemonspecies(where: {_not: {id: {_eq: $id}}}) {
           name
-          evoultion_requirement: pokemon_v2_pokemonevolutions {
+          evolution_requirement: pokemon_v2_pokemonevolutions {
             trigger: pokemon_v2_evolutiontrigger {
               name: pokemon_v2_evolutiontriggernames(where: {language_id: {_eq: 9}}) {
                 name
