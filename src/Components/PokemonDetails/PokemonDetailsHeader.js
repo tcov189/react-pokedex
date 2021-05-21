@@ -1,5 +1,6 @@
 import React from "react";
 import TypeLabel from "../Pokemon/TypeLabel";
+import PokemonSprite from "../Pokemon/PokemonSprite";
 
 export default function PokemonDetailsHeader({ pokemonData }) {
   const primaryType = pokemonData.types.filter((type) => type.slot === 1)[0];
@@ -22,9 +23,7 @@ export default function PokemonDetailsHeader({ pokemonData }) {
           </div>
       </div>
       <div className="flex-1 flex justify-around items-center">
-          <div className="bg-gray-300 rounded-full flex items-center justify-center" style={{width: "75px", height: "75px"}}>
-              Sprite
-          </div>
+          <PokemonSprite pokemonData={pokemonData} />
 
           <div className="bg-gray-300 rounded-full flex items-center justify-center" style={{width: "50px", height: "50px"}}>
               caught

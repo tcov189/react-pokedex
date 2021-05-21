@@ -72,8 +72,8 @@ function StatBlock({ stat, statName, highestStat }) {
   return (
     <div className="flex mt-2">
       <p
-        className="capitalize flex-1 bg-gray-500 text-gray-300 rounded-tl rounded-bl text-center text-sm items-center flex justify-center"
-        style={{ flexBasis: "40%" }}
+        className="capitalize flex-1 bg-gray-500 text-gray-300 rounded-tl rounded-bl text-center items-center flex justify-center"
+        style={{ flexBasis: "50%" }}
       >
         {statName}
       </p>
