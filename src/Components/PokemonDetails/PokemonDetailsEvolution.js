@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 
 import PokemonSprite from "../Pokemon/PokemonSprite";
 
-import RequirementLevelUp from './RequirementLevelUp';
+import RequirementLevelUp from './RequirementComponents/RequirementLevelUp';
+
+const requirementComponents = {
+  'LevelUp': RequirementLevelUp,
+};
 
 export default function PokemonDetailsEvolution({ evolutionData }) {
   // Parse the evolutions
@@ -29,9 +33,9 @@ function EvolutionCard({ evoData }) {
   const evoRequirement = evoData.evolution_requirement[0];
   const triggerName = evoRequirement.trigger.name[0].name;
 
-  const tagName = triggerName.replace(/\w+/g, function(w){return w[0].toUpperCase() + w.slice(1).toLowerCase();}).replace(' ', '');
+  const requirement = triggerName.replace(/\w+/g, function(w){return w[0].toUpperCase() + w.slice(1).toLowerCase();}).replace(' ', '');
 
-  let RequirementTag = `Requirement${tagName}`;
+  let RequirementTag = requirementComponents[requirement];
 
   return (
     <div className="flex flex-col items-center p-3 rounded bg-gray-500 space-y-2">
