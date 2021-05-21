@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 import PokemonSprite from "../Pokemon/PokemonSprite";
 
+import RequirementLevelUp from './RequirementLevelUp';
+
 export default function PokemonDetailsEvolution({ evolutionData }) {
   // Parse the evolutions
   let pokemon = evolutionData.pokemon.sort((a, b) => a.id - b.id);
@@ -24,6 +26,13 @@ export default function PokemonDetailsEvolution({ evolutionData }) {
 function EvolutionCard({ evoData }) {
   console.log(evoData);
 
+  const evoRequirement = evoData.evolution_requirement[0];
+  const triggerName = evoRequirement.trigger.name[0].name;
+
+  const tagName = triggerName.replace(/\w+/g, function(w){return w[0].toUpperCase() + w.slice(1).toLowerCase();}).replace(' ', '');
+
+  let RequirementTag = `Requirement${tagName}`;
+
   return (
     <div className="flex flex-col items-center p-3 rounded bg-gray-500 space-y-2">
       <Link to="/pokemon/8" className="space-y-1">
@@ -31,10 +40,8 @@ function EvolutionCard({ evoData }) {
 
         <PokemonSprite pokemonData={{ name: evoData.name, id: evoData.id }} />
       </Link>
-      <div className="flex flex-col items-center text-gray-300">
-        <p>{evoData.evolution_requirement[0].trigger.name[0].name}</p>
-        <p>{evoData.evolution_requirement[0].min_level}</p>
-      </div>
+      <RequirementTag data={evoRequirement} />
     </div>
   );
 }
+
