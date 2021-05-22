@@ -97,10 +97,7 @@ query getPokemonData($id: Int) {
     additional_info: pokemon_v2_pokemonspecy {
       evo_chain: pokemon_v2_evolutionchain {
         pokemon: pokemon_v2_pokemonspecies {
-          id
           name
-          is_baby
-          order
           evolution_requirement: pokemon_v2_pokemonevolutions {
             trigger: pokemon_v2_evolutiontrigger {
               name: pokemon_v2_evolutiontriggernames(where: {language_id: {_eq: 9}}) {
@@ -120,13 +117,19 @@ query getPokemonData($id: Int) {
             time_of_day
             trade_species_id
             turn_upside_down
+            party_species_id
+            party_type_id
+            evolution_trigger_id
           }
+          id
+          is_baby
+          evolves_from_species_id
+          order
         }
       }
     }
   }
-}
-`;
+}`;
 
 async function fetchGraphQL(id) {
   const result = await fetch("https://beta.pokeapi.co/graphql/v1beta", {

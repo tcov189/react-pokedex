@@ -1,6 +1,5 @@
 export default function RequirementNone({ data }) {
-  console.log(data)
-  let text = data.is_baby ? 'Baby' : '';
+  let text = data.is_baby ? 'Baby' : ' ';
 
   return (
     <div className="flex flex-col items-center text-gray-300">

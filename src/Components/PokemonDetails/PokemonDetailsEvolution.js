@@ -17,12 +17,32 @@ export default function PokemonDetailsEvolution({ evolutionData }) {
   // Parse the evolutions
   let pokemon = evolutionData.pokemon.sort((a, b) => a.order - b.order);
 
+  let pokemonEvos = {};
+
+  pokemon.forEach((pokemonObj) => {
+    let id = pokemonObj.evolves_from_species_id || 0;
+
+    if (!pokemonEvos[id]) {
+      pokemonEvos[id] = {};
+    }
+
+    pokemonEvos[id][pokemonObj.id] = pokemonObj;
+  });
+
+  console.log();
+
   return (
     <div className="py-1">
       <h3 className="font-bold text-lg">Evolution</h3>
-      <div className="flex space-x-10">
-        {pokemon.map((data) => {
-          return <EvolutionCard evoData={data} key={data.id} />;
+      <div className="flex space-x-8 flex-wrap">
+        {Object.values(pokemonEvos).map((data) => {
+          return (
+            <div className="flex flex-col space-y-1">
+              {Object.values(data).map((evoData) => {
+                return <EvolutionCard evoData={evoData} key={evoData.id} />;
+              })}
+            </div>
+          );
         })}
       </div>
     </div>
@@ -30,12 +50,11 @@ export default function PokemonDetailsEvolution({ evolutionData }) {
 }
 
 function EvolutionCard({ evoData }) {
-  console.log(evoData);
   const evoRequirement = evoData.evolution_requirement[0];
 
   let RequirementTag = requirementComponents["None"];
 
-  let classes = 'flex flex-col items-center p-3 rounded space-y-2 bg-gray-500 ';
+  let classes = "flex flex-col items-center p-3 rounded space-y-2 bg-gray-500 ";
 
   if (evoRequirement) {
     const triggerName = evoRequirement.trigger.name[0].name;
@@ -48,7 +67,7 @@ function EvolutionCard({ evoData }) {
 
     RequirementTag = requirementComponents[requirement];
   } else {
-    classes += 'border border-gray-200';
+    classes += "border border-gray-200";
   }
 
   return (
