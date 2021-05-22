@@ -1,15 +1,11 @@
 import PropTypes from "prop-types";
 import TypeLabel from "./TypeLabel";
 import { Link } from "react-router-dom";
-
 export default function PokemonCard({ pokemon }) {
   return (
     <Link to={`/pokemon/${pokemon.id}`}>
       <div className="flex items-center bg-gray-100 my-2 py-3 px-2 rounded-sm border border-gray-500">
         <div className="flex mr-1 w-1/2 items-center">
-          <div className="mr-2">
-            {/* <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/icons/${pokemon.id}.png`} alt="" /> */}
-          </div>
           <p className="mr-1">#{pokemon.id.toString().padStart(3, "0")}</p>
           <p className="capitalize">{pokemon.name}</p>
         </div>

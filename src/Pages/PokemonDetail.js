@@ -56,7 +56,9 @@ export default function PokemonDetail() {
 
           <PokemonDetailsStats stats={pokemonData.stats} />
 
-          <PokemonDetailsEvolution evolutionData={pokemonData.additional_info.evo_chain} />
+          <PokemonDetailsEvolution
+            evolutionData={pokemonData.additional_info.evo_chain}
+          />
         </div>
       )}
     </Content>
@@ -94,8 +96,11 @@ query getPokemonData($id: Int) {
     }
     additional_info: pokemon_v2_pokemonspecy {
       evo_chain: pokemon_v2_evolutionchain {
-        pokemon: pokemon_v2_pokemonspecies(where: {_not: {id: {_eq: $id}}}) {
+        pokemon: pokemon_v2_pokemonspecies {
+          id
           name
+          is_baby
+          order
           evolution_requirement: pokemon_v2_pokemonevolutions {
             trigger: pokemon_v2_evolutiontrigger {
               name: pokemon_v2_evolutiontriggernames(where: {language_id: {_eq: 9}}) {
@@ -107,13 +112,21 @@ query getPokemonData($id: Int) {
             min_beauty
             min_happiness
             needs_overworld_rain
+            item: pokemon_v2_item {
+              name
+            }
+            evolved_species_id
+            relative_physical_stats
+            time_of_day
+            trade_species_id
+            turn_upside_down
           }
-          id
         }
       }
     }
   }
-}`;
+}
+`;
 
 async function fetchGraphQL(id) {
   const result = await fetch("https://beta.pokeapi.co/graphql/v1beta", {
