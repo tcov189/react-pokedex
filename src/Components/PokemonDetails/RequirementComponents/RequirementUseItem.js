@@ -7,7 +7,7 @@ export default function RequirementUseItem({ data }) {
 
     return (
         <div className="flex flex-col items-center text-gray-300">
-          <p className="text-center">{ itemName }</p>
+          <p className="text-center mt-1">{ itemName }</p>
         </div>
       );
 }

@@ -3,7 +3,7 @@ export default function RequirementNone({ data }) {
 
   return (
     <div className="flex flex-col items-center text-gray-300">
-      <p className="text-center">{ text }</p>
+      <p className="text-center mt-1">{ text }</p>
     </div>
   );
 }

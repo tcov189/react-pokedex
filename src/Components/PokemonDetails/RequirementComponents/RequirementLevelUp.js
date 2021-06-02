@@ -11,7 +11,7 @@ export default function RequirementLevelUp({data}) {
 
   return (
       <div className="flex flex-col items-center text-gray-300">
-          <p>{ text } { number }</p>
+          <p className="text-center mt-1">{ text } { number }</p>
         </div>
     )
   }

@@ -11,33 +11,30 @@ const requirementComponents = {
   None: RequirementNone,
   LevelUp: RequirementLevelUp,
   UseItem: RequirementUseItem,
+  Other: RequirementNone
 };
 
 export default function PokemonDetailsEvolution({ evolutionData }) {
   // Parse the evolutions
   let pokemon = evolutionData.pokemon.sort((a, b) => a.order - b.order);
 
-  let pokemonEvos = {};
+  let evolutionStages = {};
 
   pokemon.forEach((pokemonObj) => {
-    let id = pokemonObj.evolves_from_species_id || 0;
-
-    if (!pokemonEvos[id]) {
-      pokemonEvos[id] = {};
+    if (!evolutionStages[pokemonObj.order]) {
+      evolutionStages[pokemonObj.order] = {};
     }
 
-    pokemonEvos[id][pokemonObj.id] = pokemonObj;
+    evolutionStages[pokemonObj.order][pokemonObj.id] = pokemonObj;
   });
-
-  console.log();
 
   return (
     <div className="py-1">
       <h3 className="font-bold text-lg">Evolution</h3>
-      <div className="flex space-x-8 flex-wrap">
-        {Object.values(pokemonEvos).map((data) => {
+      <div className="flex flex-wrap justify-between">
+        {Object.values(evolutionStages).map((data, index) => {
           return (
-            <div className="flex flex-col space-y-1">
+            <div key={`evo_${index}`} className="flex flex-col mb-1" style={{flexBasis: '30%'}}>
               {Object.values(data).map((evoData) => {
                 return <EvolutionCard evoData={evoData} key={evoData.id} />;
               })}
@@ -54,16 +51,16 @@ function EvolutionCard({ evoData }) {
 
   let RequirementTag = requirementComponents["None"];
 
-  let classes = "flex flex-col items-center p-3 rounded space-y-2 bg-gray-500 ";
+  let classes = "flex flex-col items-center p-3 rounded bg-gray-500 ";
 
   if (evoRequirement) {
-    const triggerName = evoRequirement.trigger.name[0].name;
+    const triggerName = evoRequirement.trigger.name;
 
     const requirement = triggerName
-      .replace(/\w+/g, function (w) {
-        return w[0].toUpperCase() + w.slice(1).toLowerCase();
-      })
-      .replace(" ", "");
+      .replace(/[-]+/g, ' ')
+      .split(' ')
+      .reduce((carry, elem) => {
+        return carry + (elem.charAt(0).toUpperCase() + elem.substring(1))}, '');
 
     RequirementTag = requirementComponents[requirement];
   } else {

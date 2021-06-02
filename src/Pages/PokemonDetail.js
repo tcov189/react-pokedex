@@ -100,9 +100,7 @@ query getPokemonData($id: Int) {
           name
           evolution_requirement: pokemon_v2_pokemonevolutions {
             trigger: pokemon_v2_evolutiontrigger {
-              name: pokemon_v2_evolutiontriggernames(where: {language_id: {_eq: 9}}) {
-                name
-              }
+              name
             }
             min_level
             min_affection
