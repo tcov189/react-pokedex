@@ -8,6 +8,7 @@ import PokemonDetailsHeader from "../Components/PokemonDetails/PokemonDetailsHea
 import PokemonDetailsAbilities from "../Components/PokemonDetails/PokemonDetailsAbilities";
 import PokemonDetailsStats from "../Components/PokemonDetails/PokemonDetailsStats";
 import PokemonDetailsEvolution from "../Components/PokemonDetails/PokemonDetailsEvolution";
+import PokemonDetailsErrorBoundary from "../Components/PokemonDetails/PokemonDetailsErrorBoundary";
 
 export default function PokemonDetail() {
   const { id } = useParams();
@@ -48,17 +49,25 @@ export default function PokemonDetail() {
 
       {pokemonData && (
         <div>
-          <PokemonDetailsNav pokemonDexNumber={pokemonData.id} />
+            <PokemonDetailsNav pokemonDexNumber={pokemonData.id} />
 
-          <PokemonDetailsHeader pokemonData={pokemonData} />
+            <PokemonDetailsErrorBoundary>
+              <PokemonDetailsHeader pokemonData={pokemonData} />
+            </PokemonDetailsErrorBoundary>
 
-          <PokemonDetailsAbilities abilities={pokemonData.abilities} />
+            <PokemonDetailsErrorBoundary>
+              <PokemonDetailsAbilities abilities={pokemonData.abilities} />
+            </PokemonDetailsErrorBoundary>
 
-          <PokemonDetailsStats stats={pokemonData.stats} />
+            <PokemonDetailsErrorBoundary>
+              <PokemonDetailsStats stats={pokemonData.stats} />
+            </PokemonDetailsErrorBoundary>
 
-          <PokemonDetailsEvolution
-            evolutionData={pokemonData.additional_info.evo_chain}
-          />
+          <PokemonDetailsErrorBoundary>
+            <PokemonDetailsEvolution
+              evolutionData={pokemonData.additional_info.evo_chain}
+            />
+          </PokemonDetailsErrorBoundary>
         </div>
       )}
     </Content>
@@ -118,6 +127,9 @@ query getPokemonData($id: Int) {
             party_species_id
             party_type_id
             evolution_trigger_id
+            held_item: pokemonV2ItemByHeldItemId {
+              name
+            }
           }
           id
           is_baby

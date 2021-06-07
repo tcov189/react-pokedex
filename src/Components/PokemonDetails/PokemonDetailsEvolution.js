@@ -6,11 +6,13 @@ import PokemonSprite from "../Pokemon/PokemonSprite";
 import RequirementLevelUp from "./RequirementComponents/RequirementLevelUp";
 import RequirementNone from "./RequirementComponents/RequirementNone";
 import RequirementUseItem from "./RequirementComponents/RequirementUseItem";
+import RequirementTrade from "./RequirementComponents/RequirementTrade";
 
 const requirementComponents = {
   None: RequirementNone,
   LevelUp: RequirementLevelUp,
   UseItem: RequirementUseItem,
+  Trade: RequirementTrade,
   Other: RequirementNone
 };
 
@@ -52,6 +54,8 @@ function EvolutionCard({ evoData }) {
   let RequirementTag = requirementComponents["None"];
 
   let classes = "flex flex-col items-center p-3 rounded bg-gray-500 ";
+
+  console.log(evoData);
 
   if (evoRequirement) {
     const triggerName = evoRequirement.trigger.name;
