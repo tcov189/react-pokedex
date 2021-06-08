@@ -13,21 +13,32 @@ const requirementComponents = {
   LevelUp: RequirementLevelUp,
   UseItem: RequirementUseItem,
   Trade: RequirementTrade,
-  Other: RequirementNone
+  Other: RequirementNone,
 };
 
 export default function PokemonDetailsEvolution({ evolutionData }) {
   // Parse the evolutions
-  let pokemon = evolutionData.pokemon.sort((a, b) => a.order - b.order);
+  let pokemon = evolutionData.pokemon.sort(
+    (a, b) =>
+      a.evolves_from_species_id - b.evolves_from_species_id && a.order - b.order
+  );
 
   let evolutionStages = {};
 
-  pokemon.forEach((pokemonObj) => {
-    if (!evolutionStages[pokemonObj.order]) {
-      evolutionStages[pokemonObj.order] = {};
+  pokemon.forEach((pokemonObj, index) => {
+    const speciesId = pokemonObj.evolves_from_species_id || 0;
+
+    if (!evolutionStages[speciesId]) {
+      evolutionStages[speciesId] = {
+        id: index,
+        pokemon: [],
+        order: pokemonObj.order,
+      }
     }
 
-    evolutionStages[pokemonObj.order][pokemonObj.id] = pokemonObj;
+    evolutionStages[speciesId].pokemon.push({...pokemonObj});
+
+    evolutionStages[speciesId].pokemon.sort((a, b) => a.order - b.order);
   });
 
   return (
@@ -36,8 +47,12 @@ export default function PokemonDetailsEvolution({ evolutionData }) {
       <div className="flex flex-wrap justify-between">
         {Object.values(evolutionStages).map((data, index) => {
           return (
-            <div key={`evo_${index}`} className="flex flex-col mb-1" style={{flexBasis: '30%'}}>
-              {Object.values(data).map((evoData) => {
+            <div
+              key={`evo_${index}`}
+              className="flex flex-col space-y-1"
+              style={{ flexBasis: "30%" }}
+            >
+              {Object.values(data.pokemon).map((evoData) => {
                 return <EvolutionCard evoData={evoData} key={evoData.id} />;
               })}
             </div>
@@ -49,22 +64,21 @@ export default function PokemonDetailsEvolution({ evolutionData }) {
 }
 
 function EvolutionCard({ evoData }) {
-  const evoRequirement = evoData.evolution_requirement[0];
+  const evoRequirement = evoData.evolution_requirement;
 
   let RequirementTag = requirementComponents["None"];
 
   let classes = "flex flex-col items-center p-3 rounded bg-gray-500 ";
 
-  console.log(evoData);
-
-  if (evoRequirement) {
-    const triggerName = evoRequirement.trigger.name;
+  if (evoRequirement.length) {
+    const triggerName = evoRequirement[0].trigger.name;
 
     const requirement = triggerName
-      .replace(/[-]+/g, ' ')
-      .split(' ')
+      .replace(/[-]+/g, " ")
+      .split(" ")
       .reduce((carry, elem) => {
-        return carry + (elem.charAt(0).toUpperCase() + elem.substring(1))}, '');
+        return carry + (elem.charAt(0).toUpperCase() + elem.substring(1));
+      }, "");
 
     RequirementTag = requirementComponents[requirement];
   } else {
