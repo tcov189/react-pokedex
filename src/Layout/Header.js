@@ -7,6 +7,10 @@ export default function Header() {
             <Link to="/">
                 Pokedex
             </Link>
+
+            <div>
+                <button className="rounded px-2 py-1 bg-green-700 border border-green-300" onClick={localStorage.clear()}>Clear Cache</button>
+            </div>
         </header>
     )
 }

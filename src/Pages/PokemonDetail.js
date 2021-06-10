@@ -106,19 +106,17 @@ query getPokemonData($id: Int) {
     additional_info: pokemon_v2_pokemonspecy {
       evo_chain: pokemon_v2_evolutionchain {
         pokemon: pokemon_v2_pokemonspecies {
+          id
+          is_baby
+          evolves_from_species_id
+          order
           name
           evolution_requirement: pokemon_v2_pokemonevolutions {
-            trigger: pokemon_v2_evolutiontrigger {
-              name
-            }
             min_level
             min_affection
             min_beauty
             min_happiness
             needs_overworld_rain
-            item: pokemon_v2_item {
-              name
-            }
             evolved_species_id
             relative_physical_stats
             time_of_day
@@ -127,14 +125,25 @@ query getPokemonData($id: Int) {
             party_species_id
             party_type_id
             evolution_trigger_id
+            trigger: pokemon_v2_evolutiontrigger {
+              name
+            }
+            item: pokemon_v2_item {
+              name
+            }
             held_item: pokemonV2ItemByHeldItemId {
               name
             }
+            gender: pokemon_v2_gender {
+              name
+            }
+            location: pokemon_v2_location {
+              name
+            }
+            move: pokemon_v2_move {
+              name
+            }
           }
-          id
-          is_baby
-          evolves_from_species_id
-          order
         }
       }
     }
